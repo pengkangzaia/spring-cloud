@@ -26,7 +26,10 @@ public class OrderController {
     // 服务调用
     // restTemplate: 提供了访问restful http接口的方法
 
-    public static final String PAYMENT_URL = "http://localhost:8001";
+    // 修改地址为服务名称
+    // public static final String PAYMENT_URL = "http://localhost:8001";
+    public static final String PAYMENT_URL = "http://CLOUD-PAYMENT-SERVICE";
+
 
     @Autowired
     private RestTemplate restTemplate;
@@ -38,7 +41,7 @@ public class OrderController {
 
     @GetMapping("/consumer/payment/get/{id}")
     public ApiResult getPaymentById(@PathVariable("id") Long id) {
-        return restTemplate.getForObject(PAYMENT_URL + "payment/get/" + id, ApiResult.class);
+        return restTemplate.getForObject(PAYMENT_URL + "/payment/get/" + id, ApiResult.class);
     }
 
 }

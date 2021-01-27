@@ -31,6 +31,7 @@ public class PaymentController {
      * 比如异步获取 json 数据，加上 @ResponseBody 后，会直接返回 json 数据。@RequestBody 将 HTTP 请求正文插入方法中，
      * 使用适合的 HttpMessageConverter 将请求体写入某个对象。
      */
+
     @Value("${server.port}")
     private String serverPort;
 
@@ -41,7 +42,7 @@ public class PaymentController {
     public ApiResult getPaymentById(@PathVariable("id") Long id) {
         Payment result = paymentService.getPaymentById(id);
         if (result != null) {
-            return new ApiResult(200, "查询成功，查询服务提供者为" + serverPort, result);
+            return new ApiResult(200, "查询成功, 服务提供者为" + serverPort, result);
         }
         return new ApiResult(500, "查询失败,查询id为：" + id);
     }
@@ -50,7 +51,7 @@ public class PaymentController {
     public ApiResult<Integer> addPayment(@RequestBody Payment payment) {
         int result = paymentService.addPayment(payment);
         if (result > 0) {
-            return new ApiResult<>(200, "添加成功, 服务提供者为" + serverPort, result);
+            return new ApiResult<>(200, "添加成功， 服务提供者为" + serverPort, result);
         }
         return new ApiResult<>(500, "添加失败");
     }
