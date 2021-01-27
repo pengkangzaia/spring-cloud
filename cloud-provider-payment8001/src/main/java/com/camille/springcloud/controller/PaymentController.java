@@ -5,8 +5,12 @@ import com.camille.springcloud.result.ApiResult;
 import com.camille.springcloud.service.PaymentService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.client.ServiceInstance;
+import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * @FileName: PaymentController.java
@@ -31,27 +35,48 @@ public class PaymentController {
      * 比如异步获取 json 数据，加上 @ResponseBody 后，会直接返回 json 数据。@RequestBody 将 HTTP 请求正文插入方法中，
      * 使用适合的 HttpMessageConverter 将请求体写入某个对象。
      */
-
+    @Value("${server.port}")
+    private String serverPort;
 
     @Autowired
     private PaymentService paymentService;
+
+    @Autowired
+    private DiscoveryClient discoveryClient;
 
     @GetMapping(value = "/get/{id}")
     public ApiResult getPaymentById(@PathVariable("id") Long id) {
         Payment result = paymentService.getPaymentById(id);
         if (result != null) {
-            return new ApiResult(200, "查询成功", result);
+            return new ApiResult(200, "查询成功，查询服务提供者为" + serverPort, result);
         }
         return new ApiResult(500, "查询失败,查询id为：" + id);
     }
 
     @PostMapping(value = "/add")
-    public ApiResult<Integer> addPayment(Payment payment) {
+    public ApiResult<Integer> addPayment(@RequestBody Payment payment) {
         int result = paymentService.addPayment(payment);
         if (result > 0) {
-            return new ApiResult<>(200, "添加成功", result);
+            return new ApiResult<>(200, "添加成功, 服务提供者为" + serverPort, result);
         }
         return new ApiResult<>(500, "添加失败");
+    }
+
+    @GetMapping(value = "/discovery")
+    public Object discovery() {
+        List<String> services = discoveryClient.getServices();
+        for (String service : services) {
+            System.out.println(service);
+            List<ServiceInstance> instances = discoveryClient.getInstances(service);
+            for (ServiceInstance instance : instances) {
+                System.out.println(instance.getHost() + " " + instance.getPort());
+            }
+        }
+        List<ServiceInstance> instances = discoveryClient.getInstances("CLOUD-PAYMENT-SERVICE");
+        for (ServiceInstance instance : instances) {
+            System.out.println(instance.getHost() + " " + instance.getPort() + " " + instance.getUri());
+        }
+        return this.discoveryClient;
     }
 
 
