@@ -1,4 +1,4 @@
-package com.camille.springcloud.result;
+package result;
 
 import lombok.Data;
 

@@ -5,7 +5,6 @@ import com.camille.springcloud.result.ApiResult;
 import com.camille.springcloud.service.PaymentService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -46,7 +45,7 @@ public class PaymentController {
     }
 
     @PostMapping(value = "/add")
-    public ApiResult<Integer> addPayment(Payment payment) {
+    public ApiResult<Integer> addPayment(@RequestBody Payment payment) {
         int result = paymentService.addPayment(payment);
         if (result > 0) {
             return new ApiResult<>(200, "添加成功", result);

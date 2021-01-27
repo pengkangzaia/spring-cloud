@@ -1,4 +1,4 @@
-package com.camille.springcloud.entities;
+package entities;
 
 import lombok.Data;
 

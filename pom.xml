@@ -12,6 +12,9 @@
     <modules>
         <module>cloud-provider-payment8001</module>
         <module>cloud-consumer-order80</module>
+        <module>cloud-api-commoms</module>
+        <module>cloud-eureka-server7001</module>
+        <module>cloud-eureka-server7002</module>
     </modules>
 
     <properties>
@@ -24,6 +27,7 @@
         <mysql.version>8.0.18</mysql.version>
         <druid.version>1.1.16</druid.version>
         <mybatis.spring.boot.version>2.1.1</mybatis.spring.boot.version>
+        <api.commons.version>1.0-SNAPSHOT</api.commons.version>
     </properties>
 
     <dependencyManagement>
@@ -85,6 +89,12 @@
                 <groupId>log4j</groupId>
                 <artifactId>log4j</artifactId>
                 <version>${log4j.version}</version>
+            </dependency>
+            <!--工具包-->
+            <dependency>
+                <groupId>com.camille.springcloud</groupId>
+                <artifactId>cloud-api-commoms</artifactId>
+                <version>${api.commons.version}</version>
             </dependency>
         </dependencies>
 
