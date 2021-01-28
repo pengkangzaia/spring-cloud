@@ -3,7 +3,7 @@ server:
 
 eureka:
   client:
-    # 为什么这里是false
+    # 客户端只需要调用，不需要注册进eureka
     register-with-eureka: false
     service-url:
       defaultZone: http://eureka7001.com:7001/eureka,http://eureka7002.com:7002/eureka
