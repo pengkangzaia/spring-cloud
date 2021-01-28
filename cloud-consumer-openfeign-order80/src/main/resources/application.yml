@@ -14,3 +14,7 @@ ribbon:
   ReadTimeout: 5000
   # 请求服务端响应超时时间
   ConnectTimeout: 5000
+
+logging:
+  level:
+    com.camille.springcloud.service.PaymentFeignService: debug
