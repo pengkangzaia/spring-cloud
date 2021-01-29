@@ -27,6 +27,7 @@ public class PaymentController {
     @Value("${server.port}")
     private String serverPort;
 
+
     @GetMapping(value = "/zk")
     public String zkRegisterTest() {
         return "spring cloud with zookeeper:" + serverPort + " " + UUID.randomUUID().toString();
