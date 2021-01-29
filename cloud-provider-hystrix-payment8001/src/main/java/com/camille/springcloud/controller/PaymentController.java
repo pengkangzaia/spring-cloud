@@ -2,7 +2,7 @@
  * Copyright: 2021 dingxiang-inc.com Inc. All rights reserved.
  */
 
-package com.camille.springcloud.service.controller;
+package com.camille.springcloud.controller;
 
 import com.camille.springcloud.service.PaymentService;
 import lombok.extern.slf4j.Slf4j;
