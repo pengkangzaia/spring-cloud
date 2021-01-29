@@ -5,6 +5,7 @@
 package com.camille.springcloud.controller;
 
 import com.camille.springcloud.service.PaymentHystrixService;
+import com.netflix.hystrix.contrib.javanica.annotation.DefaultProperties;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 import lombok.extern.slf4j.Slf4j;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @Slf4j
+@DefaultProperties(defaultFallback = "paymentGlobalFallback")
 public class OrderHystrixController {
 
     @Autowired
@@ -34,9 +36,12 @@ public class OrderHystrixController {
     }
 
     @GetMapping(value = "/consumer/payment/hystrix/timeout/{id}")
+    // 不用默认的配置，使用自己的回调函数
     @HystrixCommand(fallbackMethod = "timeoutHandler", commandProperties = {
             @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "1500")
     })
+    // 默认回调函数
+    //@HystrixCommand
     public String paymentInfoTimeout(@PathVariable("id") Integer id) {
         String result = paymentHystrixService.paymentInfoTimeout(id);
         return result;
@@ -44,6 +49,10 @@ public class OrderHystrixController {
 
     public String timeoutHandler(Integer id) {
         return "客户端80出错, 线程为" + Thread.currentThread().getName() + " 系统超时或运行报错，请稍后重试:" + id;
+    }
+
+    public String paymentGlobalFallback() {
+        return "客户端服务容错默认回调方法";
     }
 
 }
