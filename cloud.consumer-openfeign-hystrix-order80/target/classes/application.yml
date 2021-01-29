@@ -18,3 +18,8 @@ ribbon:
 logging:
   level:
     com.camille.springcloud.service.PaymentFeignService: debug
+
+# 客户端开启服务容错
+feign:
+  hystrix:
+    enabled: true

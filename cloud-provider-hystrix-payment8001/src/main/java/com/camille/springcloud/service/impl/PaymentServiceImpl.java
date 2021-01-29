@@ -29,11 +29,11 @@ public class PaymentServiceImpl implements PaymentService {
 
     @Override
     @HystrixCommand(fallbackMethod = "timeoutHandler", commandProperties = {
-            @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "3000")
+            @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "5000")
     })
     public String paymentInfoTimeout(Integer id) {
         // 调用时间超过设定时间引发错误
-        int cost = 5;
+        int cost = 3;
         // int a = 10 / 0; 程序运行时出错会正常运行
         try {
             TimeUnit.SECONDS.sleep(cost);
