@@ -11,6 +11,12 @@ spring:
           uri: http://localhost:8001  # predicate匹配之后，提供服务的路由地址
           predicates:
             - Path=/payment/get/**    # 断言，路径相匹配的用对应的uri进行路由
+
+        - id: video_routh
+          uri: https://www.bilibili.com/
+          predicates:
+            - Path=/bilibili/video
+
 eureka:
   instance:
     hostname: cloud-gateway-service
