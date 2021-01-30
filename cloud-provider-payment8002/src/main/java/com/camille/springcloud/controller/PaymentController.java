@@ -56,5 +56,10 @@ public class PaymentController {
         return new ApiResult<>(500, "添加失败");
     }
 
+    @GetMapping(value = "/lb")
+    public String getPaymentLb() {
+        return serverPort;
+    }
+
 
 }
