@@ -11,6 +11,12 @@ spring:
       profile: dev
       # 读取main分支上的application-dev.yml文件
       uri: http://localhost:3344
+  # rabbitMQ配置
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
 eureka:
   client:
     service-url:
