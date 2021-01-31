@@ -21,7 +21,7 @@ spring:
           destination: exchangeDemo
           content-type: application/json # 设置消息的类型为json
           binder: defaultRabbit
-          group: samegroup
+          group: samegroup # 这里如果设置了分组，那么如果消费者系统中途宕机了，在重启之后也能获得未消费到的消息
 
 eureka:
   client:
