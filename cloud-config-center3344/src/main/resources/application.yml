@@ -13,6 +13,9 @@ spring:
           # 搜索目录
           search-paths:
             - springcloud-config
+          # 此处添加用户名和密码进行登录验证
+          username: pengkangzai@foxmail.com
+          password: changeme
       # 读取分支
       label: main
 
