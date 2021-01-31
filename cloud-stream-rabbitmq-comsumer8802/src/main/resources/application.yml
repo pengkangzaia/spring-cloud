@@ -21,6 +21,7 @@ spring:
           destination: exchangeDemo
           content-type: application/json # 设置消息的类型为json
           binder: defaultRabbit
+          group: samegroup
 
 eureka:
   client:
